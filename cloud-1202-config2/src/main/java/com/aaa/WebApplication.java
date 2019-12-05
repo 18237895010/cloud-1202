@@ -11,7 +11,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 public class WebApplication {
     public static void main(String[] args){
-        SpringApplication.run(MetricsProperties.Web.class);
+        SpringApplication.run(WebApplication.class);
     }
     
 }

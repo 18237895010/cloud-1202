@@ -2,6 +2,7 @@ package com.aaa.controller;
 
 import com.aaa.model.BookInfo;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,7 @@ import java.util.List;
 public class RibbonConsumerBookConroller {
     @Autowired
     private RestTemplate restTemplate;
-    @HystrixCommand(fallbackMethod="error")
+    @HystrixCommand(fallbackMethod="error",commandProperties = {@HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",value="15000")})
     @GetMapping("getAllBookFromRibbon")
     public List<BookInfo> getAllBook(){
        LinkedList<BookInfo> forObject=restTemplate.getForObject("http://provider-server/getAllBook", LinkedList.class);
